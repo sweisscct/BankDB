@@ -18,7 +18,9 @@ public class BankDB {
     public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
         DBConnector dbconn = new DBConnector();
         dbconn.createDB();
-        dbconn.addCustomer("Debbie", 1, 1000);
+        dbconn.addCustomer("Debbie3", 3, 3000);
+        System.out.println(dbconn.getCustomer(1));
+        System.out.println(dbconn.getCustomer(3));
     }
     
 }

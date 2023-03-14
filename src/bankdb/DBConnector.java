@@ -6,6 +6,7 @@ package bankdb;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -42,8 +43,18 @@ public class DBConnector {
     public void addCustomer(String name, int id, int balance) throws SQLException {
         Connection conn = DriverManager.getConnection(DB_URL + "/" + DB_NAME, USER, PASSWD);
         Statement stmt = conn.createStatement();  
-        stmt.execute(String.format("INSERT INTO accounts (name, id, balance) VALUES (\"%s\", %d, %d)", name, id, balance));
+        stmt.execute(String.format("INSERT INTO accounts (name, id, balance) VALUES ('%s', %d, %d)", name, id, balance));
         System.out.println("Customer Added");
+    }
+    
+    public String getCustomer(int id) throws SQLException {
+        Connection conn = DriverManager.getConnection(DB_URL + "/" + DB_NAME, USER, PASSWD);
+        Statement stmt = conn.createStatement();  
+        ResultSet rs = stmt.executeQuery(String.format("SELECT * FROM accounts WHERE id = %d;", id));
+        rs.next();
+        String name = rs.getString("name");
+        int balance = rs.getInt("balance");
+        return "The customer is: " + name + " and their balance is: " + balance;
     }
     
     
