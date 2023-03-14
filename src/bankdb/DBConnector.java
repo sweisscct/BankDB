@@ -24,8 +24,15 @@ public class DBConnector {
         try {
             Connection conn = DriverManager.getConnection(DB_URL, USER, PASSWD);
             Statement stmt = conn.createStatement();
-            stmt.execute("CREATE DATABASE bank");
+            stmt.execute("CREATE DATABASE bank;");
             System.out.println("DB Created");
+            stmt.execute("USE bank;");
+            stmt.execute("CREATE TABLE accounts ("
+                    + "name VARCHAR(40),"
+                    + "id INT(10) NOT NULL PRIMARY KEY,"
+                    + "balance INT(10)"
+                    + ");");
+            System.out.println("Table Created.");
         } catch (Exception e) {
             e.printStackTrace();
         }
